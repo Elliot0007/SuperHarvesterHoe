@@ -319,15 +319,6 @@ public class event implements Listener {
     }
 
     @EventHandler
-    public void openGui(InventoryClickEvent e) {
-        Player p = (Player) e.getWhoClicked();
-        Inventory inv = Bukkit.createInventory(null, 27, "EXP Shop");
-// Took out GUI Creation of Items
-        p.openInventory(inv);
-    }
-
-
-    @EventHandler
     public void hoeUpgradeEvent(InventoryClickEvent e) {
 
         if (!e.getInventory().equals(gui)) return;
@@ -427,7 +418,7 @@ public class event implements Listener {
                 return;
             }
             case 20: {
-                lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".kelp");
+                lvl = data.getConfig().getInt(Objects.requireNonNull(info).getUuid() + ".upgrades" + ".kelp");
                 //Place to add a wrong amount items needed for upgrade
                 if (p.getInventory().contains(Material.KELP,plugin.getConfig().getInt("kelp" + "." + lvl))){
                     p.getInventory().removeItem(new ItemStack(Material.KELP,plugin.getConfig().getInt("kelp" + "." + lvl)));
@@ -486,15 +477,30 @@ public class event implements Listener {
                 }
             }
             case 49: {
-                //
+                HoeUpgrades.GUI.openGui();
+
             }
         }
     }
-    public void replantCrop(Location location, Material cropBlockType) {
-        Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
-            location.getBlock().setType(cropBlockType);
+    @EventHandler
+    public void HoeUpgrades(InventoryClickEvent e) {
+        if (!e.getInventory().equals(gui)) return;
+        e.setCancelled(true);
+        Player p = (Player) e.getWhoClicked();
+        switch(e.getSlot()) {
+            case 49: {
+                Inventory inv = Bukkit.createInventory(null, 27, "EXP Shop");
+                // Took out GUI Creation of Items
+                p.openInventory(inv);
+                e.setCancelled(true);
+            }
+        }
+    }
 
-        }, 5l);
+
+
+    public void replantCrop(Location location, Material cropBlockType) {
+        Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> location.getBlock().setType(cropBlockType), 5l);
     }
 
     public void removeSeed(Player player, Material seedType) {

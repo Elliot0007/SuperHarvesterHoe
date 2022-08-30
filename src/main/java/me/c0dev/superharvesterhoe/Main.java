@@ -3,7 +3,6 @@ package me.c0dev.superharvesterhoe;
 import me.c0dev.superharvesterhoe.HarvesterHoe.Commands.commands;
 import me.c0dev.superharvesterhoe.HarvesterHoe.Commands.getUUID;
 import me.c0dev.superharvesterhoe.HarvesterHoe.Commands.wipeConfig;
-import me.c0dev.superharvesterhoe.HarvesterHoe.Events.HoeUpgrades;
 import me.c0dev.superharvesterhoe.HarvesterHoe.Events.event;
 import me.c0dev.superharvesterhoe.HarvesterHoe.Files.DataManager;
 import me.c0dev.superharvesterhoe.HarvesterHoe.Item.items;

@@ -1,0 +1,9 @@
+name: SuperHarvesterHoe
+version: '1.0-SNAPSHOT'
+main: me.c0dev.superharvesterhoe.Main
+api-version: 1.18
+
+commands:
+  giveSHarvesterHoe:
+    description: Gives the player a harvester hoe
+    usage: /giveSHarvesterHoe

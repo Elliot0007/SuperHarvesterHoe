@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SuperHarvesterHoe:jar">
+    <output-path>E:/1.18 Server/1.18/plugins/</output-path>
+    <root id="archive" name="SuperHarvesterHoe.jar">
+      <element id="module-output" name="SuperHarvesterHoe" />
+    </root>
+  </artifact>
+</component>

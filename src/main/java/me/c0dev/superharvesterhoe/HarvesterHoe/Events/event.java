@@ -45,8 +45,7 @@ public class event implements Listener {
                 PersistentDataContainer container = Objects.requireNonNull(event.getItem().getItemMeta()).getPersistentDataContainer();
                 NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "harvester_hoe_uuid");
                 if (container.has(key, new InformationDataType())) {
-                    Player player = event.getPlayer();
-
+                    //Player player = event.getPlayer();
                     openNewGui(event.getPlayer());
                 }
             }
@@ -57,7 +56,7 @@ public class event implements Listener {
     public void onRightClickAir(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_AIR) {
             if (event.getItem() != null) {
-                PersistentDataContainer container = event.getItem().getItemMeta().getPersistentDataContainer();
+                PersistentDataContainer container = Objects.requireNonNull(event.getItem().getItemMeta()).getPersistentDataContainer();
                 NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "harvester_hoe_uuid");
                 if (container.has(key, new InformationDataType())) {
                     openNewGui(event.getPlayer());
@@ -97,12 +96,14 @@ public class event implements Listener {
                                 player.getInventory().addItem(new ItemStack(Objects.requireNonNull(Material.getMaterial(m.toString().replace("WHEAT", "WHEAT_SEEDS"))), 2)); // Subtracts one so has to be to two, super wierd
 
                                 if (m == Material.WHEAT) {
+                                    assert info != null;
                                     Wheat = Wheat + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".wheat");
                                     data.getConfig().set(info.getUuid() + ".amount_mined" + ".wheat", data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".wheat") + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".wheat"));
                                     data.saveConfig();
                                 }
 
                                 if (m == Material.POTATOES) {
+                                    assert info != null;
                                     Potatoes = Potatoes + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".potatoes");
                                     if (data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".potatoes") == 0) {
                                         data.getConfig().set(info.getUuid() + ".amount_mined" + ".potatoes", Potatoes);
@@ -121,6 +122,7 @@ public class event implements Listener {
                                 }
 
                                 if (m == Material.CARROTS) {
+                                    assert info != null;
                                     Carrots = Carrots + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".carrots");
                                     if (data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".carrots") == 0) {
                                         data.getConfig().set(info.getUuid() + ".amount_mined" + ".carrots", Carrots);
@@ -148,6 +150,7 @@ public class event implements Listener {
                     for (String cu : compUpgrades) {
                         if (player.getWorld().getBlockAt(block.getX(), block.getY() - 1, block.getZ()).getType().toString().contains(cm.toString())) {
                             if (cm.toString().replaceAll("KELP_PLANT", "KELP").equals(cu.replace(".", "").toUpperCase())) {
+                                assert info != null;
                                 player.getInventory().addItem(new ItemStack(Objects.requireNonNull(Material.getMaterial(cm.toString())), data.getConfig().getInt(info.getUuid() + ".upgrades" + cu)));
                                 if (cm == Material.KELP) {
                                     block.setType(Material.WATER);
@@ -483,7 +486,7 @@ public class event implements Listener {
                 }
             }
             case 49: {
-                p.openInventory(inv);
+                //
             }
         }
     }

@@ -476,23 +476,72 @@ public class event implements Listener {
                     }
                 }
             }
-            case 49: {
-                HoeUpgrades.GUI.openGui();
-
-            }
         }
     }
     @EventHandler
     public void HoeUpgrades(InventoryClickEvent e) {
-        if (!e.getInventory().equals(gui)) return;
-        e.setCancelled(true);
         Player p = (Player) e.getWhoClicked();
         switch(e.getSlot()) {
             case 49: {
-                Inventory inv = Bukkit.createInventory(null, 27, "EXP Shop");
-                // Took out GUI Creation of Items
+                Inventory inv = Bukkit.createInventory(null, 27, "Upgrade Shop");
+
+                // Upgrade 1
+                ItemStack up1 = new ItemStack(Material.NETHER_STAR, 1);
+                ItemMeta up1meta = up1.getItemMeta();
+
+                up1meta.setDisplayName(ChatColor.GOLD + "Upgrade 1");
+                List<String> up1lore = new ArrayList<>();
+                up1lore.add("Test1 ");// 0
+                up1lore.add("Test12 "); // 1
+                up1meta.setLore(up1lore);
+                up1.setItemMeta(up1meta);
+                if (e.getInventory(inv).getItem(up1))
+                //making sure you cant remove the items
+
+                // Upgrade 2
+                ItemStack up2 = new ItemStack(Material.NETHER_STAR, 1);
+                ItemMeta up2meta = up2.getItemMeta();
+
+                up2meta.setDisplayName(ChatColor.GOLD + "Upgrade ");
+                List<String> up2lore = new ArrayList<>();
+                up2lore.add("Test1 ");// 0
+                up2lore.add("Test12 "); // 1
+                up2meta.setLore(up2lore);
+                up2.setItemMeta(up2meta);
+
+                // Upgrade 3
+                ItemStack up3 = new ItemStack(Material.NETHER_STAR, 1);
+                ItemMeta up3meta = up3.getItemMeta();
+
+                up3meta.setDisplayName(ChatColor.GOLD + "Upgrade 3");
+                List<String> up3lore = new ArrayList<>();
+                up3lore.add("Test1 ");// 0
+                up3lore.add("Test12 "); // 1
+                up3meta.setLore(up3lore);
+                up3.setItemMeta(up3meta);
+
+                // Upgrade 4
+                ItemStack up4 = new ItemStack(Material.NETHER_STAR, 1);
+                ItemMeta up4meta = up4.getItemMeta();
+
+                up4meta.setDisplayName(ChatColor.GOLD + "Upgrade 4");
+                List<String> up4lore = new ArrayList<>();
+                up4lore.add("Test1 ");// 0
+                up4lore.add("Test12 "); // 1
+                up4meta.setLore(up4lore);
+                up4.setItemMeta(up4meta);
+
+                inv.setItem(10, up1);
+                inv.setItem(12, up2);
+                inv.setItem(14, up3);
+                inv.setItem(16, up4);
                 p.openInventory(inv);
-                e.setCancelled(true);
+                switch(e.getSlot()){
+                    case 10:{
+                        e.getWhoClicked().sendMessage("Hello");
+                    }
+                }
+                updateInventory(p);
             }
         }
     }

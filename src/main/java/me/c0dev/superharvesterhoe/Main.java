@@ -38,7 +38,6 @@ public final class Main extends JavaPlugin {
             }
         });
         getServer().getPluginManager().registerEvents(new event(), this);
-        getServer().getPluginManager().registerEvents(new HoeUpgrades(), this);
 
         getCommand("giveSHarvesterHoe").setExecutor(new commands());
         getCommand("getUUID").setExecutor(new getUUID());

@@ -28,7 +28,8 @@ import java.util.Objects;
 
 public class event implements Listener {
     private static Inventory gui;
-    private static Inventory upgradegui;
+
+    private static Inventory gui1;
     public static DataManager data;
     public static int Wheat = 0;
     public static int Carrots = 0;
@@ -51,6 +52,18 @@ public class event implements Listener {
                 if (container.has(key, new InformationDataType())) {
                     //Player player = event.getPlayer();
                     openNewGui(event.getPlayer());
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onLeftClick(PlayerInteractEvent event) {
+        if (event.getAction() == Action.LEFT_CLICK_AIR) {
+            if (event.getItem() != null) {
+                PersistentDataContainer container = Objects.requireNonNull(event.getItem().getItemMeta()).getPersistentDataContainer();
+                NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "harvester_hoe_uuid");
+                if (container.has(key, new InformationDataType())) {
+                    openUpgradeGui(event.getPlayer());
                 }
             }
         }
@@ -316,6 +329,10 @@ public class event implements Listener {
                 data.getConfig().set(info.getUuid() + ".amount_mined" + ".sugar_cane", 0);
                 data.saveConfig();
             }
+            case 49: {
+                e.getWhoClicked().sendMessage("Its not working");
+                e.getWhoClicked().closeInventory();
+            }
             case 99: {
                 //
             }
@@ -478,12 +495,10 @@ public class event implements Listener {
                     }
                 }
             }
-            case 49: {
-                e.getWhoClicked().openInventory(upgradegui);
-                updateInventory(p);
-            }
         }
     }
+
+
 
 
 
@@ -553,75 +568,63 @@ public class event implements Listener {
         }
         return null;
     }
+    //Hoe GUI
     public static void openNewGui(Player p) {
         gui = Bukkit.createInventory(null, 54, "MENU");
         data = new DataManager(JavaPlugin.getPlugin(Main.class));
         PersistentDataContainer container = p.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer();
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "harvester_hoe_uuid");
         Information info = container.get(key, new InformationDataType());
-
-
         ItemStack GrayGlasspane = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
         ItemMeta meta = GrayGlasspane.getItemMeta();
         assert meta != null;
         meta.setDisplayName(ChatColor.GREEN + "");
         GrayGlasspane.setItemMeta(meta);
-
         ItemStack WheatUpgrade = new ItemStack(Material.WHEAT, 1);
         ItemMeta meta1 = WheatUpgrade.getItemMeta();
         assert meta1 != null;
         meta1.setDisplayName(ChatColor.YELLOW + "Wheat Upgrade: LVL " + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".wheat"));
         WheatUpgrade.setItemMeta(meta1);
-
         ItemStack BeetRootUpgrade = new ItemStack(Material.BEETROOT, 1);
         ItemMeta beetRootMeta = BeetRootUpgrade.getItemMeta();
         assert beetRootMeta != null;
         beetRootMeta.setDisplayName(ChatColor.RED + "BeetRoot Upgrade: LVL " + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".beetroot"));
         BeetRootUpgrade.setItemMeta(beetRootMeta);
-
         ItemStack CarrotUpgrade = new ItemStack(Material.CARROT, 1);
         ItemMeta carrotMeta = CarrotUpgrade.getItemMeta();
         assert carrotMeta != null;
         carrotMeta.setDisplayName(ChatColor.GOLD + "Carrot Upgrade: LVL " + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".carrots"));
         CarrotUpgrade.setItemMeta(carrotMeta);
-
         ItemStack PotatoUpgrade = new ItemStack(Material.POTATO, 1);
         ItemMeta potatoMeta = PotatoUpgrade.getItemMeta();
         assert potatoMeta != null;
         potatoMeta.setDisplayName(ChatColor.YELLOW + "Potato Upgrade: LVL " + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".potatoes"));
         PotatoUpgrade.setItemMeta(potatoMeta);
-
         ItemStack KelpUpgrade = new ItemStack(Material.KELP, 1);
         ItemMeta kelpMeta = KelpUpgrade.getItemMeta();
         assert kelpMeta != null;
         kelpMeta.setDisplayName(ChatColor.DARK_GREEN + "Kelp Upgrade: LVL " + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".kelp"));
         KelpUpgrade.setItemMeta(kelpMeta);
-
         ItemStack BambooUpgrade = new ItemStack(Material.BAMBOO, 1);
         ItemMeta bambooMeta = BambooUpgrade.getItemMeta();
         assert bambooMeta != null;
         bambooMeta.setDisplayName(ChatColor.GREEN + "Bamboo Upgrade: LVL " + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".bamboo"));
         BambooUpgrade.setItemMeta(bambooMeta);
-
         ItemStack SugarCaneUpgrade = new ItemStack(Material.SUGAR_CANE, 1);
         ItemMeta sugarCaneMeta = SugarCaneUpgrade.getItemMeta();
         assert sugarCaneMeta != null;
         sugarCaneMeta.setDisplayName(ChatColor.DARK_GREEN + "Sugar Cane Upgrade: LVL " + data.getConfig().getInt(info.getUuid() + ".upgrades" + ".sugar_cane"));
         SugarCaneUpgrade.setItemMeta(sugarCaneMeta);
-
         for (int i = 0; i < gui.getContents().length; i++) {
             ItemStack is = gui.getItem(i);
             if (is == null || is.getType() == Material.AIR) {
                 gui.setItem(i, GrayGlasspane);
             }
         }
-
         ItemStack Collecter = new ItemStack(Material.BARREL, 1);
         ItemMeta meta2 = Collecter.getItemMeta();
-
         meta2.setDisplayName(ChatColor.GOLD + "Crops Collected:");
         List<String> lore1 = new ArrayList<>();
-
         lore1.add("§9Wheat : " + data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".wheat"));// 0
         lore1.add("§9Carrots : " + data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".carrots")); // 1
         lore1.add("§9Potatoes : " + data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".potatoes")); // 2
@@ -629,26 +632,16 @@ public class event implements Listener {
         lore1.add("§9Kelp : " + data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".kelp")); // 4
         lore1.add("§9Bamboo : " + data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".bamboo")); // 5
         lore1.add("§9Sugar Cane : " + data.getConfig().getInt(info.getUuid() + ".amount_mined" + ".sugar_cane")); // 7
-
         meta2.setLore(lore1);
-
         Collecter.setItemMeta(meta2);
-
-
         ItemStack Upgrader = new ItemStack(Material.ANVIL, 1);
         ItemMeta meta3 = Upgrader.getItemMeta();
-
         meta3.setDisplayName(ChatColor.GOLD + "Harvester Hoe Upgrades:");
         List<String> lore3 = new ArrayList<>();
-
         lore1.add("§9Add upgrades to your Hoe");// 0
-
-
         meta3.setLore(lore3);
 
         Upgrader.setItemMeta(meta3);
-
-
         gui.setItem(10, WheatUpgrade);
         gui.setItem(12, BeetRootUpgrade);
         gui.setItem(14, CarrotUpgrade);
@@ -658,58 +651,21 @@ public class event implements Listener {
         gui.setItem(24, SugarCaneUpgrade);
         gui.setItem(40, Collecter);
         gui.setItem(49, Upgrader);
-
         p.openInventory(gui);
-
     }
-
+    //Hoes Upgrade GUI
     public static void openUpgradeGui(Player p) {
-        upgradegui = Bukkit.createInventory(null, 54, "Upgrade Menu");
-        PersistentDataContainer container = p.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer();
-        NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "harvester_hoe_uuid");
-        Information info = container.get(key, new InformationDataType());
+        Inventory gui1 = Bukkit.getServer().createInventory(p, 9, "Help");
 
+        //Here you define our item
+        ItemStack ref1 = new ItemStack(Material.BOOK);
+        gui1.setItem(1, ref1);
 
-        ItemStack Filler = new ItemStack(Material.AIR, 1);
-        ItemMeta meta = Filler.getItemMeta();
-        assert meta != null;
-        meta.setDisplayName(ChatColor.GREEN + "");
-        Filler.setItemMeta(meta);
-
-        ItemStack Up1 = new ItemStack(Material.NETHER_STAR, 1);
-        ItemMeta meta1 = Up1.getItemMeta();
-        assert meta1 != null;
-        meta1.setDisplayName(ChatColor.YELLOW + "1");
-        Up1.setItemMeta(meta1);
-
-
-        for (int i = 0; i < upgradegui.getContents().length; i++) {
-            ItemStack is = upgradegui.getItem(i);
-            if (is == null || is.getType() == Material.AIR) {
-                upgradegui.setItem(i, Filler);
-            }
-        }
-
-
-        ItemStack Upgrader = new ItemStack(Material.ANVIL, 1);
-        ItemMeta meta3 = Upgrader.getItemMeta();
-
-        meta3.setDisplayName(ChatColor.GOLD + "Harvester Hoe Upgrades:");
-        List<String> lore3 = new ArrayList<>();
-
-
-        meta3.setLore(lore3);
-
-        Upgrader.setItemMeta(meta3);
-
-
-        upgradegui.setItem(10, Up1);
-
-        upgradegui.setItem(49, Upgrader);
-
-        p.openInventory(upgradegui);
-
+        //Here opens the inventory
+        p.openInventory(gui1);
     }
+
+
 
     private void updateInventory(final Player player) {
         new BukkitRunnable() {

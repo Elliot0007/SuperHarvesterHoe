@@ -7,3 +7,9 @@ commands:
   giveSHarvesterHoe:
     description: Gives the player a harvester hoe
     usage: /giveSHarvesterHoe
+  getUUID:
+    description: Gives the player the UUID of a custom item
+    usage: /getUUID
+  wipeConfig:
+    description: Wipes the Harvester Hoe config
+    usage: /wipeConfig

@@ -481,7 +481,7 @@ public class event implements Listener {
     @EventHandler
     public void HoeUpgrades(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        switch(e.getSlot()) {
+        switch (e.getSlot()) {
             case 49: {
                 Inventory inv = Bukkit.createInventory(null, 27, "Upgrade Shop");
 
@@ -495,7 +495,8 @@ public class event implements Listener {
                 up1lore.add("Test12 "); // 1
                 up1meta.setLore(up1lore);
                 up1.setItemMeta(up1meta);
-                if (e.getInventory(inv).getItem(up1))
+
+
                 //making sure you cant remove the items
 
                 // Upgrade 2
@@ -536,12 +537,13 @@ public class event implements Listener {
                 inv.setItem(14, up3);
                 inv.setItem(16, up4);
                 p.openInventory(inv);
-                switch(e.getSlot()){
-                    case 10:{
-                        e.getWhoClicked().sendMessage("Hello");
+                p.updateInventory();
+                switch (e.getSlot()) {
+                    case 10: {
+                        e.setCancelled(true);
+                        p.sendMessage("Hi");
                     }
                 }
-                updateInventory(p);
             }
         }
     }

@@ -28,6 +28,7 @@ import java.util.Objects;
 
 public class event implements Listener {
     private static Inventory gui;
+    private static Inventory upgradegui;
     public static DataManager data;
     public static int Wheat = 0;
     public static int Carrots = 0;
@@ -38,6 +39,9 @@ public class event implements Listener {
     public static int Beetroot = 0;
 
     Plugin plugin = Main.getPlugin(Main.class);
+
+
+
     @EventHandler
     public void onRightClickBlock(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -340,8 +344,8 @@ public class event implements Listener {
             case 10: {
                 lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".wheat");
                 //Place to add a wrong amount items needed for upgrade
-                if (p.getInventory().contains(Material.WHEAT,plugin.getConfig().getInt("wheat" + "." + lvl))){
-                    p.getInventory().removeItem(new ItemStack(Material.WHEAT,plugin.getConfig().getInt("wheat" + "." + lvl)));
+                if (p.getInventory().contains(Material.WHEAT, plugin.getConfig().getInt("wheat" + "." + lvl))) {
+                    p.getInventory().removeItem(new ItemStack(Material.WHEAT, plugin.getConfig().getInt("wheat" + "." + lvl)));
                     if (data.getConfig().getInt("max_upgrade_lvl") > data.getConfig().getInt(info.getUuid() + ".upgrades" + ".wheat")) {
                         if (data.getConfig().contains(info.getUuid() + ".upgrades" + ".wheat"))
                             lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".wheat");
@@ -360,8 +364,8 @@ public class event implements Listener {
             case 12: {
                 lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".beetroot");
                 //Place to add a wrong amount items needed for upgrade
-                if (p.getInventory().contains(Material.BEETROOT,plugin.getConfig().getInt("beetroot" + "." + lvl))){
-                    p.getInventory().removeItem(new ItemStack(Material.BEETROOT,plugin.getConfig().getInt("beetroot" + "." + lvl)));
+                if (p.getInventory().contains(Material.BEETROOT, plugin.getConfig().getInt("beetroot" + "." + lvl))) {
+                    p.getInventory().removeItem(new ItemStack(Material.BEETROOT, plugin.getConfig().getInt("beetroot" + "." + lvl)));
                     if (data.getConfig().getInt("max_upgrade_lvl") > data.getConfig().getInt(info.getUuid() + ".upgrades" + ".beetroot")) {
                         if (data.getConfig().contains(info.getUuid() + ".upgrades" + ".beetroot"))
                             lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".beetroot");
@@ -380,8 +384,8 @@ public class event implements Listener {
             case 14: {
                 lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".carrots");
                 //Place to add a wrong amount items needed for upgrade
-                if (p.getInventory().contains(Material.CARROT,plugin.getConfig().getInt("carrots" + "." + lvl))){
-                    p.getInventory().removeItem(new ItemStack(Material.CARROT,plugin.getConfig().getInt("carrots" + "." + lvl)));
+                if (p.getInventory().contains(Material.CARROT, plugin.getConfig().getInt("carrots" + "." + lvl))) {
+                    p.getInventory().removeItem(new ItemStack(Material.CARROT, plugin.getConfig().getInt("carrots" + "." + lvl)));
                     if (data.getConfig().getInt("max_upgrade_lvl") > data.getConfig().getInt(info.getUuid() + ".upgrades" + ".carrots")) {
                         if (data.getConfig().contains(info.getUuid() + ".upgrades" + ".carrots"))
                             lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".carrots");
@@ -400,8 +404,8 @@ public class event implements Listener {
             case 16: {
                 lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".potatoes");
                 //Place to add a wrong amount items needed for upgrade
-                if (p.getInventory().contains(Material.POTATO,plugin.getConfig().getInt("potatoes" + "." + lvl))){
-                    p.getInventory().removeItem(new ItemStack(Material.POTATO,plugin.getConfig().getInt("potatoes" + "." + lvl)));
+                if (p.getInventory().contains(Material.POTATO, plugin.getConfig().getInt("potatoes" + "." + lvl))) {
+                    p.getInventory().removeItem(new ItemStack(Material.POTATO, plugin.getConfig().getInt("potatoes" + "." + lvl)));
                     if (data.getConfig().getInt("max_upgrade_lvl") > data.getConfig().getInt(info.getUuid() + ".upgrades" + ".potatoes")) {
                         if (data.getConfig().contains(info.getUuid() + ".upgrades" + ".potatoes"))
                             lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".potatoes");
@@ -420,8 +424,8 @@ public class event implements Listener {
             case 20: {
                 lvl = data.getConfig().getInt(Objects.requireNonNull(info).getUuid() + ".upgrades" + ".kelp");
                 //Place to add a wrong amount items needed for upgrade
-                if (p.getInventory().contains(Material.KELP,plugin.getConfig().getInt("kelp" + "." + lvl))){
-                    p.getInventory().removeItem(new ItemStack(Material.KELP,plugin.getConfig().getInt("kelp" + "." + lvl)));
+                if (p.getInventory().contains(Material.KELP, plugin.getConfig().getInt("kelp" + "." + lvl))) {
+                    p.getInventory().removeItem(new ItemStack(Material.KELP, plugin.getConfig().getInt("kelp" + "." + lvl)));
                     if (data.getConfig().getInt("max_upgrade_lvl") > data.getConfig().getInt(info.getUuid() + ".upgrades" + ".kelp")) {
                         if (data.getConfig().contains(info.getUuid() + ".upgrades" + ".kelp"))
                             lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".kelp");
@@ -439,9 +443,8 @@ public class event implements Listener {
             }
             case 22: {
                 lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".bamboo");
-                //Place to add a wrong amount items needed for upgrade
-                if (p.getInventory().contains(Material.BAMBOO,plugin.getConfig().getInt("bamboo" + "." + lvl))){
-                    p.getInventory().removeItem(new ItemStack(Material.BAMBOO,plugin.getConfig().getInt("bamboo" + "." + lvl)));
+                if (p.getInventory().contains(Material.BAMBOO, plugin.getConfig().getInt("bamboo" + "." + lvl))) {
+                    p.getInventory().removeItem(new ItemStack(Material.BAMBOO, plugin.getConfig().getInt("bamboo" + "." + lvl)));
                     if (data.getConfig().getInt("max_upgrade_lvl") > data.getConfig().getInt(info.getUuid() + ".upgrades" + ".bamboo")) {
                         if (data.getConfig().contains(info.getUuid() + ".upgrades" + ".bamboo"))
                             lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".bamboo");
@@ -459,9 +462,8 @@ public class event implements Listener {
             }
             case 24: {
                 lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".sugar_cane");
-                //Place to add a wrong amount items needed for upgrade
-                if (p.getInventory().contains(Material.SUGAR_CANE,plugin.getConfig().getInt("sugar_cane" + "." + lvl))){
-                    p.getInventory().removeItem(new ItemStack(Material.SUGAR_CANE,plugin.getConfig().getInt("sugar_cane" + "." + lvl)));
+                if (p.getInventory().contains(Material.SUGAR_CANE, plugin.getConfig().getInt("sugar_cane" + "." + lvl))) {
+                    p.getInventory().removeItem(new ItemStack(Material.SUGAR_CANE, plugin.getConfig().getInt("sugar_cane" + "." + lvl)));
                     if (data.getConfig().getInt("max_upgrade_lvl") > data.getConfig().getInt(info.getUuid() + ".upgrades" + ".sugar_cane")) {
                         if (data.getConfig().contains(info.getUuid() + ".upgrades" + ".sugar_cane"))
                             lvl = data.getConfig().getInt(info.getUuid() + ".upgrades" + ".sugar_cane");
@@ -476,77 +478,13 @@ public class event implements Listener {
                     }
                 }
             }
-        }
-    }
-    @EventHandler
-    public void HoeUpgrades(InventoryClickEvent e) {
-        Player p = (Player) e.getWhoClicked();
-        switch (e.getSlot()) {
             case 49: {
-                Inventory inv = Bukkit.createInventory(null, 27, "Upgrade Shop");
-
-                // Upgrade 1
-                ItemStack up1 = new ItemStack(Material.NETHER_STAR, 1);
-                ItemMeta up1meta = up1.getItemMeta();
-
-                up1meta.setDisplayName(ChatColor.GOLD + "Upgrade 1");
-                List<String> up1lore = new ArrayList<>();
-                up1lore.add("Test1 ");// 0
-                up1lore.add("Test12 "); // 1
-                up1meta.setLore(up1lore);
-                up1.setItemMeta(up1meta);
-
-
-                //making sure you cant remove the items
-
-                // Upgrade 2
-                ItemStack up2 = new ItemStack(Material.NETHER_STAR, 1);
-                ItemMeta up2meta = up2.getItemMeta();
-
-                up2meta.setDisplayName(ChatColor.GOLD + "Upgrade ");
-                List<String> up2lore = new ArrayList<>();
-                up2lore.add("Test1 ");// 0
-                up2lore.add("Test12 "); // 1
-                up2meta.setLore(up2lore);
-                up2.setItemMeta(up2meta);
-
-                // Upgrade 3
-                ItemStack up3 = new ItemStack(Material.NETHER_STAR, 1);
-                ItemMeta up3meta = up3.getItemMeta();
-
-                up3meta.setDisplayName(ChatColor.GOLD + "Upgrade 3");
-                List<String> up3lore = new ArrayList<>();
-                up3lore.add("Test1 ");// 0
-                up3lore.add("Test12 "); // 1
-                up3meta.setLore(up3lore);
-                up3.setItemMeta(up3meta);
-
-                // Upgrade 4
-                ItemStack up4 = new ItemStack(Material.NETHER_STAR, 1);
-                ItemMeta up4meta = up4.getItemMeta();
-
-                up4meta.setDisplayName(ChatColor.GOLD + "Upgrade 4");
-                List<String> up4lore = new ArrayList<>();
-                up4lore.add("Test1 ");// 0
-                up4lore.add("Test12 "); // 1
-                up4meta.setLore(up4lore);
-                up4.setItemMeta(up4meta);
-
-                inv.setItem(10, up1);
-                inv.setItem(12, up2);
-                inv.setItem(14, up3);
-                inv.setItem(16, up4);
-                p.openInventory(inv);
-                p.updateInventory();
-                switch (e.getSlot()) {
-                    case 10: {
-                        e.setCancelled(true);
-                        p.sendMessage("Hi");
-                    }
-                }
+                e.getWhoClicked().openInventory(upgradegui);
+                updateInventory(p);
             }
         }
     }
+
 
 
 
@@ -616,7 +554,7 @@ public class event implements Listener {
         return null;
     }
     public static void openNewGui(Player p) {
-        gui = Bukkit.createInventory(null, 54, "Menu");
+        gui = Bukkit.createInventory(null, 54, "MENU");
         data = new DataManager(JavaPlugin.getPlugin(Main.class));
         PersistentDataContainer container = p.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer();
         NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "harvester_hoe_uuid");
@@ -722,6 +660,55 @@ public class event implements Listener {
         gui.setItem(49, Upgrader);
 
         p.openInventory(gui);
+
+    }
+
+    public static void openUpgradeGui(Player p) {
+        upgradegui = Bukkit.createInventory(null, 54, "Upgrade Menu");
+        PersistentDataContainer container = p.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer();
+        NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "harvester_hoe_uuid");
+        Information info = container.get(key, new InformationDataType());
+
+
+        ItemStack Filler = new ItemStack(Material.AIR, 1);
+        ItemMeta meta = Filler.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(ChatColor.GREEN + "");
+        Filler.setItemMeta(meta);
+
+        ItemStack Up1 = new ItemStack(Material.NETHER_STAR, 1);
+        ItemMeta meta1 = Up1.getItemMeta();
+        assert meta1 != null;
+        meta1.setDisplayName(ChatColor.YELLOW + "1");
+        Up1.setItemMeta(meta1);
+
+
+        for (int i = 0; i < upgradegui.getContents().length; i++) {
+            ItemStack is = upgradegui.getItem(i);
+            if (is == null || is.getType() == Material.AIR) {
+                upgradegui.setItem(i, Filler);
+            }
+        }
+
+
+        ItemStack Upgrader = new ItemStack(Material.ANVIL, 1);
+        ItemMeta meta3 = Upgrader.getItemMeta();
+
+        meta3.setDisplayName(ChatColor.GOLD + "Harvester Hoe Upgrades:");
+        List<String> lore3 = new ArrayList<>();
+
+
+        meta3.setLore(lore3);
+
+        Upgrader.setItemMeta(meta3);
+
+
+        upgradegui.setItem(10, Up1);
+
+        upgradegui.setItem(49, Upgrader);
+
+        p.openInventory(upgradegui);
+
     }
 
     private void updateInventory(final Player player) {
